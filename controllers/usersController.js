@@ -50,3 +50,12 @@ module.exports.login = async (req, res) => {
         return res.status(401).json({ errors: errors.array() })
     }
 }
+
+module.exports.getUserDetails = async (req, res) => {
+    const { userId } = req.params;
+    if (userId) {
+        return res.status(201).json({ msg: `${userId} details is here` })
+    } else {
+        return res.status(400).json({ msg: "bookId is missing" })
+    }
+}
