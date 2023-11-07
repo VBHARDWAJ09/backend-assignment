@@ -5,7 +5,7 @@ const { authorized } = require('../services/Authorization');
 const { borrowBook, returnBook } = require('../controllers/recordsController');
 
 
-router.post('/borrow', boorowValidations, borrowBook)
-router.post('/return', returnBookValidations, returnBook)
+router.post('/borrow', [authorized, boorowValidations], borrowBook)
+router.post('/return', [authorized, returnBookValidations], returnBook)
 
 module.exports = router;

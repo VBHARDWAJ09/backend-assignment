@@ -14,6 +14,6 @@ module.exports.comparePassword = async (password, dbPassword) => {
 
 module.exports.createToken = async (user) => {
     return await jwt.sign(user, JWT_SECRET, {
-        expiresIn: '7d'
+        expiresIn: '1d'
     })
 }

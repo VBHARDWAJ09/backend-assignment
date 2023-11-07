@@ -8,6 +8,6 @@ const { register, login, getUserDetails } = require('../controllers/usersControl
 
 router.post('/user', registerValidations, register)
 router.post('/user/login', loginValidations, login)
-router.get('/user/:userId/books', getUserDetails)
+router.get('/user/:userId/books', [authorized], getUserDetails)
 
 module.exports = router;

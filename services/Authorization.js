@@ -13,9 +13,9 @@ module.exports.authorized = (req, res, next) => {
                 return res.status(401).json({ errors: [{ msg: "Invalid Token mismatch" }] })
             }
         } catch (err) {
-            return res.status(401).json({ errors: [{ msg: "Invalid Token" }] })
+            return res.status(401).json({ errors: [{ msg: "Invalid Token or Expired Token" }] })
         }
     } else {
-        return res.status(401).json({ errors: [{ msg: "Token is missing" }] });
+        return res.status(401).json({ errors: [{ msg: "token is missing" }] });
     }
 }

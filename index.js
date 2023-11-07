@@ -6,7 +6,7 @@ const recordRoutes = require('./routes/recordsRoutes')
 const connect = require('./config/db')
 
 const app = express()
-const port = env.PORT || 6000
+const port = env.PORT
 app.use(express.json())
 connect()
 

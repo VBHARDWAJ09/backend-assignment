@@ -5,8 +5,8 @@ const { authorized } = require('../services/Authorization');
 const { addBook, getAllBooks, getBook } = require('../controllers/booksController');
 
 
-router.post('/books', addBookValidations, addBook)
-router.get('/books', getAllBooks)
-router.get('/books/:bookId', getBook)
+router.post('/books', [authorized, addBookValidations], addBook)
+router.get('/books', [authorized], getAllBooks)
+router.get('/books/:bookId', [authorized], getBook)
 
 module.exports = router;

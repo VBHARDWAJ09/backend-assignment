@@ -1,7 +1,8 @@
 require('dotenv').config()
+const constants = require('./const')
 
 module.exports = {
-    PORT: process.env.PORT,
-    JWT_SECRET: process.env.JWT_SECRET,
-    database: "mongodb+srv://bhardwajvishal2803:bhardwajvishal2803@cluster0.gihiuvo.mongodb.net/"
+    PORT: constants.PORT,
+    JWT_SECRET: constants.JWT_SECRET,
+    database: constants.db_url
 }
