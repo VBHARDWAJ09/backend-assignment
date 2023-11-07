@@ -4,21 +4,22 @@ const BookModel = require('../models/book')
 module.exports.addBook = async (req, res) => {
     const errors = validationResult(req)
     if (errors.isEmpty()) {
-        return res.status(201).json({ msg: "your book is added" })
-        // const { name, email, password } = req.body;
-        // try {
-        //     const emailExist = await UserModel.findOne({ email: email })
-        //     if (!emailExist) {
-        //         const hashed = await hashedPassword(password);
-        //         const user = await UserModel.create({ name, email, password: hashed, phone, admin: false })
-        //         const token = await createToken({ id: user._id, name })
-        //         return res.status(201).json({ msg: "your account has been created successfully", token })
-        //     } else {
-        //         return res.status(401).json({ errors: [{ msg: `${email} already exists` }] })
-        //     }
-        // } catch (err) {
-        //     return res.status(500).json({ msg: err.message })
-        // }
+        const { name, author, quantities } = req.body;
+        try {
+            const checkExist = await BookModel.findOne({ name, author })
+            if (!checkExist) {
+                if (parseInt(quantities) > 0) {
+                    await BookModel.create({ name, author, quantities })
+                    return res.status(200).json({ msg: `${name} book by ${author} has been added successfully` })
+                } else {
+                    return res.status(402).json({ msg: `${quantities} invalid quantities please provide a valid number` })
+                }
+            } else {
+                return res.status(402).json({ msg: `${name} book by ${author} already exist` })
+            }
+        } catch (err) {
+            return res.status(500).json({ msg: err.message })
+        }
     } else {
         // validation failed
         return res.status(400).json({ errors: errors.array() })
@@ -26,10 +27,36 @@ module.exports.addBook = async (req, res) => {
 }
 
 module.exports.getAllBooks = async (req, res) => {
-    return res.status(200).json({ msg: "getAllBooks" })
+    try {
+        const allBooks = await BookModel.find({})
+        if (allBooks.length > 0) {
+            const restData = allBooks.map((book) => {
+                const { _id, __v, ...restOfBookData } = book.toObject();
+                return restOfBookData;
+            })
+            return res.status(200).json({ data: restData })
+        } else {
+            return res.status(402).json({ msg: `Data not exist` })
+        }
+    } catch (err) {
+        return res.status(500).json({ msg: err.message })
+    }
 }
 
 module.exports.getBook = async (req, res) => {
     const bookId = req.params.bookId
-    return res.status(200).json({ msg: "getAllBooks " + bookId + " from here" })
+    try {
+        const bookdata = await BookModel.find({ _id: bookId })
+        if (bookdata.length > 0) {
+            const restData = bookdata.map((book) => {
+                const { _id, __v, ...restOfBookData } = book.toObject();
+                return restOfBookData;
+            })
+            return res.status(200).json({ data: restData })
+        } else {
+            return res.status(402).json({ msg: `Book not exist` })
+        }
+    } catch (err) {
+        return res.status(500).json({ msg: err.message })
+    }
 }

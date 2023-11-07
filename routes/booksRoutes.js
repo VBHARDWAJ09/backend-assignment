@@ -8,4 +8,5 @@ const { addBook, getAllBooks, getBook } = require('../controllers/booksControlle
 router.post('/books', addBookValidations, addBook)
 router.get('/books', getAllBooks)
 router.get('/books/:bookId', getBook)
+
 module.exports = router;
