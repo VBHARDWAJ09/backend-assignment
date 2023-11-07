@@ -13,4 +13,4 @@ start the server by
 **Note:**
 Authorization Token will return when a new user is created or login. And that token has a validity of 1d and need to pass in all apis expect create-user and login api.
 example: 
-authorization: Bearer **<token>**
+authorization: Bearer **_token**
