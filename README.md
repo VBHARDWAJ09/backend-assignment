@@ -1,7 +1,7 @@
 # backend-assignment
 
 # Get Started
-install dev dependencies
+install dev dependencies \n
 npm install
 
 # DB URL
